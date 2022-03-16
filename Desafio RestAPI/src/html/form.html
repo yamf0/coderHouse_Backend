@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Formulario de Productos</title>
+  </head>
+  <body>
+      <fieldset>
+          <h2>Ingrese Producto</h2>
+          <form action="http://localhost:8080/api/productos" method="POST">
+              Nombre: <input type="text" name="title" /> Precio:
+              <input type="number" name="price" /> Url de la imagen del producto: <input type="url" name="url" />
+              <button>Enviar</button>
+            </form>
+            <br />
+            <hr />
+        </fieldset>
+  </body>
+</html>
