@@ -1,0 +1,26 @@
+doctype html
+head
+  meta(charset='UTF-8')
+  meta(name='viewport' content='width=device-width, initial-scale=1.0')
+  title Mis productos
+  style
+        include ../public/style.css
+h2 Lista de Productos
+    if listExists 
+        table
+            tr
+                th Nombre
+                th Precio
+                th Foto
+            each val in array
+                tr
+                    td #{val.Nombre}
+                    td #{val.Precio}
+                    td
+                        img#foto(src=val.Foto)
+    else
+        div#noProd
+            p No hay productos disponibles
+
+    form(action='http://localhost:8080')
+        input(type='submit' value='Nuevo producto')
