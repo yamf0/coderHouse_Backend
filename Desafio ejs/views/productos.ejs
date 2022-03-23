@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Mis productos</title>
+        <link href="style.css" rel="stylesheet" type="text/css">
+    </head>
+    <h2>Lista de Productos</h2>
+        <% if (listExists){ %>
+        <table>
+            <thead>
+                <tr>
+                
+                    <th>Nombre</th>
+                    <th>Precio</th>
+                    <th>Foto</th>
+                    
+                </tr>
+            </thead>
+                <tbody>
+                    <% array.forEach(function(prod){ %>
+                       
+                        <tr>
+                            
+                            <td><%= prod.Nombre %></td>
+                            <td><%= prod.Precio %></td>
+                            <td>
+                                <img src=<%= prod.Foto%> id="foto">
+                            </td>
+                            
+                        </tr>
+                        <% }) %>
+                        
+                    </tbody>
+                </table>
+        <% } else{ %>
+            <div id="noProd">
+                <p>No hay productos disponibles</p>
+            </div>
+        <% } %>
+    <form action="http://localhost:8080">
+        <input type="submit" value="Nuevo producto" />
+    </form>
+</html>
