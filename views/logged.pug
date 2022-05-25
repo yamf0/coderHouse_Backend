@@ -1,0 +1,26 @@
+html
+  head
+    title Porductos page
+    style
+      include ../style/style.css
+  body
+
+    h1 
+      div(class="oneLine")
+        br
+        p Bienvenido #{username}
+        form(method = "POST" action = "/logout" style= "float:right")
+            button Logout
+    div
+
+      form
+        label(for = "product") Product Name:
+        input(type = "text", name = "product")
+        br
+        label(for = "price") Price:
+        input(type = "text", name = "price")
+        br
+        label(for = "photo") Photo URL:
+        input(type = "text", name = "photo")
+        br
+        input(class="submitBtn" type = "submit", name = "submit", value = "submit")
