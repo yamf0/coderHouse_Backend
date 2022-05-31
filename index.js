@@ -4,12 +4,16 @@ const session = require("express-session")
 const cookieParser = require('cookie-parser')
 const passport = require('passport')
 const localStrategy = require('passport-local').Strategy
+var argsList = require('minimist')(process.argv);
 
-const MongoStore = require('connect-mongo')
-const advancedOpts = {useNewUrlParser: true, useUnifiedTopology: true}
+//SET PORT TO -p or 8080
+const port = argsList["p"]? argsList["p"] : 8080
+
+console.log(port)
+const processRouter = require('./routers/processRouter')
+
 require('dotenv').config()
 
-const db = require("./dbUtils/mongoConnection")
 const userModel = require("./dbUtils/userSchema");
 const encryptUtils = require("./utils/encryptPassword")
 
@@ -18,6 +22,8 @@ const app = express()
 
 app.use(express.urlencoded({extended:false}))
 app.use(express.json())
+
+app.use("/api", processRouter)
 
 app.set("view engine", "pug");
 app.set("views", path.join(__dirname, "views"));
@@ -96,7 +102,7 @@ passport.deserializeUser((user, done) => {
     });
 })
 
-app.listen(8080,() => {
+app.listen(port,() => {
     console.log("server running")
 })
 
@@ -208,3 +214,15 @@ app.post('/user/register', async (req, res) => {
       }
 })
 
+app.get('/info', (req, res) => {
+    
+    res.json({
+        args: argsList,
+        platform: process.platform,
+        nodeVersion: process.version,
+        rss: process.memoryUsage().rss,
+        execPath: process.execPath,
+        pid: process.pid,
+        path: __dirname
+    })
+})
