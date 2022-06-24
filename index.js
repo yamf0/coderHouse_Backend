@@ -31,19 +31,21 @@ const homeRouter = require('./routers/homeRouter')
 
 require('dotenv').config()
 
+const logger = require('./loggers/loggers')
+
 //#DESAFIO NGINX#
 const cluster = require('cluster')
 const os = require('os')
 const MODO = argv.mode || 'FORK'
 if(MODO === 'CLUSTER' && cluster.isMaster){
     const numCpus = os.cpus().length
-    console.log(`Cpus are ${numCpus}`)
+    logger.logInfo.info(`Cpus are ${numCpus}`)
     
     for(let i =0; i<numCpus; i++){
         cluster.fork()
     }
     cluster.on('exit', (worker) =>{
-        console.log(
+        logger.logInfo.info(
             'worker',
             worker.process.pid,
             'died',
@@ -53,7 +55,7 @@ if(MODO === 'CLUSTER' && cluster.isMaster){
     })
 }
 else{
-    console.log("Entering else")
+    logger.logInfo.info("Entering else")
     const app = express()
     
     app.use(express.urlencoded({extended:false}))
@@ -86,7 +88,7 @@ else{
     app.use("", homeRouter)
 
     app.listen(port,() => {
-        console.log("server running")
+        logger.logInfo.info("server running")
     })
 }
 //#DESAFIO NGINX#

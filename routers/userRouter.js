@@ -1,4 +1,5 @@
 var express = require('express');
+const logger = require('../loggers/loggers')
 const encryptUtils = require("../utils/encryptPassword")
 const userModel = require("../dbUtils/userSchema");
 const passport = require('passport')
@@ -56,7 +57,7 @@ router.post('/register', async (req, res) => {
 
     user.password = await encryptUtils.encrypt(user.password)
 
-    console.log(user.password)
+    logger.logInfo.info(user.password)
 
     try {
         await user.save();

@@ -1,3 +1,4 @@
+const logger = require('../loggers/loggers')
 var express = require('express');
 // Single routing
 var router = express.Router()
@@ -6,11 +7,11 @@ var router = express.Router()
 router.get('/home', (req, res)=> {
     const user = req.user
     if(!user){
-        console.log("user not logged in")
+        logger.logInfo.info("user not logged in")
         res.redirect('/login')
     }
     else{
-        console.log("user is logged in")
+        logger.logInfo.info("user is logged in")
         res.render('logged', {username: user.username})
     }
 })
@@ -18,7 +19,7 @@ router.get('/home', (req, res)=> {
 router.get('/login', (req, res) => {
     //make sure there is no session here
     req.logOut((err) => {
-        if(err){console.log(err)}
+        if(err){logger.logError.error(err)}
     })
     res.render('login')
 })

@@ -2,21 +2,22 @@ const passport = require('passport')
 const localStrategy = require('passport-local').Strategy
 const encryptUtils = require("../utils/encryptPassword")
 const userModel = require("../dbUtils/userSchema");
+const logger = require('../loggers/loggers')
 
 passport.use('register',
     new localStrategy(
         {passReqToCallback: true},
         async (req, username, password, done) => {
-            console.log(username)
+            logger.logInfo.info(username)
             const userExists =  await userModel.findOne({ username: username })
 
             if(userExists){
                 //User exists in DB no registration needed
-                console.log("user already registered")
+                logger.logInfo.info("user already registered")
                 return done(null, false)
             } else{
                 //Encryt pwd and register user
-                console.log("User is not registered")
+                logger.logInfo.info("User is not registered")
 
                 const user = new userModel({ username: username, password: password})
 
