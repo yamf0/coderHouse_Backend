@@ -21,7 +21,7 @@ const argv = yargs
   .alias('help', 'h').argv;
 
 //SET PORT TO -p or 8080
-const port = argv.port || 8080
+const port = argv.port || process.env.PORT || 8080
 
 console.log(port)
 

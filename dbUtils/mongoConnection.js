@@ -3,7 +3,8 @@ require('dotenv').config()
 const logger = require('../loggers/loggers')
 
 const USER = encodeURIComponent(process.env.USER)
-const MONGOPWD = encodeURIComponent(process.env.PWD)
+const MONGOPWD = encodeURIComponent(process.env.MONGOPWD)
+logger.logInfo.info(`User ${USER} and PWD ${MONGOPWD}`)
 
 mongoose.connect(`mongodb+srv://${USER}:${MONGOPWD}@cluster0.ii4wa.mongodb.net/desafioPassport?retryWrites=true&w=majority`,
   {
