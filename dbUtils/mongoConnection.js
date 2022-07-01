@@ -2,7 +2,10 @@ const mongoose = require('mongoose');
 require('dotenv').config()
 const logger = require('../loggers/loggers')
 
-mongoose.connect(`mongodb+srv://${process.env.USER}:${process.env.PWD}@cluster0.ii4wa.mongodb.net/desafioPassport?retryWrites=true&w=majority`,
+const USER = encodeURIComponent(process.env.USER)
+const MONGOPWD = encodeURIComponent(process.env.PWD)
+
+mongoose.connect(`mongodb+srv://${USER}:${MONGOPWD}@cluster0.ii4wa.mongodb.net/desafioPassport?retryWrites=true&w=majority`,
   {
     useNewUrlParser: true,
     useUnifiedTopology: true
